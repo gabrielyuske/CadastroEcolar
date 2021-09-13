@@ -1,44 +1,44 @@
 import Aluno from "../models/Aluno";
 
-class HomeController {
+class AlunoController {
     async index(req, res) {
         const alunos = await Aluno.findAll();
 
         res.json(alunos);
     }
+
     async store(req, res) {
         try {
-
             const aluno = await Aluno.create(req.body);
 
             return res.json(aluno)
         } catch (e) {
             return res.status(400).json({
-                erros: e.erros.map((err) => err.message),
+                errors: e.errors.map((err) => err.message),
             });
         }
     }
 
     async show(req, res) {
         try {
-            const id = req.params;
+            const { id } = req.params;
 
             if (!id) {
                 return res.status(400).json({
-                    erros: ["Faltando ID"],
+                    errors: ["Faltando ID"],
                 });
             }
             const aluno = await Aluno.findByPk(id);
 
             if (!aluno) {
                 return res.status(400).json({
-                    erros: ["Aluno nao existe"],
+                    errors: ['Aluno não existe'],
                 });
             }
-            return res.json(aluno)
+            return res.json(aluno);
         } catch (e) {
             return res.status(400).json({
-                erros: e.erros.map((err) => err.message),
+                errors: e.errors.map((err) => err.message),
             });
         }
     }
@@ -49,21 +49,21 @@ class HomeController {
 
             if (!id) {
                 return res.status(400).json({
-                    erros: ["Faltando ID"],
+                    errors: ["Faltando ID"],
                 });
             }
             const aluno = await Aluno.findByPk(id);
 
             if (!aluno) {
                 return res.status(400).json({
-                    erros: ["Aluno nao existe"],
+                    errors: ["Aluno nao existe"],
                 });
             }
-            const alunoAtualizado = await Aluno.update(req.body);
+            const alunoAtualizado = await aluno.update(req.body);
             return res.json(alunoAtualizado)
         } catch (e) {
             return res.status(400).json({
-                erros: e.erros.map((err) => err.message),
+                errors: e.errors.map((err) => err.message),
             });
         }
     }
@@ -74,14 +74,14 @@ class HomeController {
 
             if (!id) {
                 return res.status(400).json({
-                    erros: ["Faltando ID"],
+                    errors: ["Faltando ID"],
                 });
             }
             const aluno = await Aluno.findByPk(id);
 
             if (!aluno) {
                 return res.status(400).json({
-                    erros: ["Aluno nao existe"],
+                    errors: ["Aluno nao existe"],
                 });
             }
 
@@ -92,12 +92,11 @@ class HomeController {
 
         } catch (e) {
             return res.status(400).json({
-                erros: e.erros.map((err) => err.message),
+                errors: e.errors.map((err) => err.message),
             });
         }
     }
-
 }
 
 
-export default new HomeController();
+export default new AlunoController();

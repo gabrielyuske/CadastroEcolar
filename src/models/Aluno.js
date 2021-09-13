@@ -1,11 +1,11 @@
-import Sequelize, { ExclusionConstraintError, Model } from "sequelize";
+import Sequelize, { Model } from "sequelize";
 
 export default class Aluno extends Model {
     static init(sequelize) {
         super.init({
             nome: {
-                type: sequelize.STRING,
-                default: "",
+                type: Sequelize.STRING,
+                defaultValue: "",
                 validate: {
                     len: {
                         args: [3, 255],
@@ -14,8 +14,8 @@ export default class Aluno extends Model {
                 },
             },
             sobrenome: {
-                type: sequelize.STRING,
-                default: "",
+                type: Sequelize.STRING,
+                defaultValue: "",
                 validate: {
                     len: {
                         args: [3, 255],
@@ -25,8 +25,8 @@ export default class Aluno extends Model {
             },
 
             email: {
-                type: sequelize.STRING,
-                default: "",
+                type: Sequelize.STRING,
+                defaultValue: "",
                 unique: {
                     msg: "Email ja existe",
                 },
@@ -38,30 +38,34 @@ export default class Aluno extends Model {
             },
 
             telefone: {
-                type: sequelize.INTEGER,
-                default: "",
+                type: Sequelize.INTEGER,
+                defaultValue: "",
                 validate: {
                     isInt: {
-                        args: [9],
-                        msg: "telefone precisa ter 9 digitos",
+                        len: {
+                            args: [9],
+                            msg: "telefone precisa ter 9 digitos",
+                        }
+
                     },
                 },
             },
 
             idade: {
-                type: sequelize.Integer,
-                default: "",
+                type: Sequelize.INTEGER,
+                defaultValue: "",
                 validate: {
                     isInt: {
+
                         msg: "Idade precisa ser um numero inteiro",
                     },
                 },
             },
             serie: {
-                type: sequelize.STRING,
-                default: "",
+                type: Sequelize.INTEGER,
+                defaultValue: "",
                 validate: {
-                    isEmail: {
+                    isInt: {
                         msg: "Serie precisa ser um numero inteiro",
                     },
                 },
